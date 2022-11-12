@@ -1,37 +1,40 @@
 package base;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import helpers.yamlConfigFramework.DriverSetup;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import providers.YamlProvider;
 
 public class TestBase {
     private static Logger log = LoggerFactory.getLogger(TestBase.class);
 
     public WebDriver driver;
+    private static DriverSetup driverSetup;
+    private static YamlProvider yamlProvider;
 
     @BeforeAll
     public static void setupDriver() {
-        WebDriverManager.chromedriver().setup();
+        yamlProvider = YamlProvider.getInstance();
+        driverSetup = new DriverSetup();
         log.info("WebDriver started successfully");
     }
 
     @BeforeEach
     public void setupBrowser() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
-        driver = new ChromeDriver(options);
+        driver = driverSetup.getDriver();
+        log.info("<<<<<<Driver initialized>>>>>>");
+        driver.get(System.getProperty("appUrl"));
+        log.info("<<<<<<Loaded url: " + System.getProperty("appUrl") + ">>>>>>");
         log.info("Maximized browser opened successfully");
     }
 
     @AfterEach
     public void tearDown() {
         driver.quit();
-        log.info("WebDriver closed");
+        log.info("<<<<<<Driver has been quit>>>>>>");
     }
 }

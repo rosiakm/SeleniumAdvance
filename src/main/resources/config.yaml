@@ -1,0 +1,14 @@
+browser:
+  browserName: chrome
+  headlessMode: true
+  timeout: 10
+environment:
+  appUrl: http://146.59.32.4/index.php
+testData:
+  searchInput: HUMMINGBIRD
+  currency: $
+  expectedNumberOfProducts: 1
+  minimumPrice: 9.00
+  maximumPrice: 11.00
+  positionOfMinimumPrice: 0
+  positionOfMaximumPrice: 1
