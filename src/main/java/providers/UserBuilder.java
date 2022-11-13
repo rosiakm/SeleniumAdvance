@@ -9,8 +9,7 @@ public class UserBuilder {
         return new User(faker.name().firstName(),
                 faker.name().lastName(),
                 faker.internet().emailAddress(),
-                faker.address().city(),
-                faker.address().streetName(),
-                faker.address().zipCode());
+                faker.internet().password(),
+                faker.date().birthday());
     }
 }
