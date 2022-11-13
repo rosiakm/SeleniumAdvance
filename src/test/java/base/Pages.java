@@ -1,6 +1,9 @@
 package base;
 
 import org.junit.jupiter.api.BeforeEach;
+import pages.Cart.CartPage;
+import pages.Content.Popup;
+import pages.Content.ProductDetails;
 import pages.Content.ProductListHeader;
 import pages.Content.Products;
 import pages.Filters.Price;
@@ -14,6 +17,9 @@ public class Pages extends TestBase{
     public Price price;
     public Categories categories;
     public Search search;
+    public CartPage cartPage;
+    public Popup popup;
+    public ProductDetails productDetails;
 
     @BeforeEach
     public void setPageInstance(){
@@ -22,5 +28,8 @@ public class Pages extends TestBase{
         price = new Price(driver);
         categories = new Categories(driver);
         search = new Search(driver);
+        cartPage = new CartPage(driver);
+        popup = new Popup(driver);
+        productDetails = new ProductDetails(driver);
     }
 }

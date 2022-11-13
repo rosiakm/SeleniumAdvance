@@ -1,5 +1,6 @@
 package pages.Content;
 
+import helpers.WaitHandler;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static helpers.WaitHandler.waitForElementToBeClickable;
+
 public class Products extends BasePage {
     private Logger log = LoggerFactory.getLogger(Products.class);
 
@@ -18,8 +21,8 @@ public class Products extends BasePage {
     private WebElement allProducts;
     @FindBy(css = "div[class='product']")
     private List<WebElement> productList;
-    @FindBy(css = "div[class='product-description'] a")
-    private List<WebElement> productDescriptionList;
+    @FindBy(css = ".product-title a")
+    private List<WebElement> productTitleList;
     @FindBy(css = "span[class='price']")
     private List<WebElement> priceList;
     @FindBy(css = "div[class='product-description'] a")
@@ -33,7 +36,7 @@ public class Products extends BasePage {
 
     public String getRandomProductName() {
         Random random = new Random();
-        WebElement randomElement = productDescriptionList.get(random.nextInt(productDescriptionList.size()));
+        WebElement randomElement = productTitleList.get(random.nextInt(productTitleList.size()));
         return getTextOfWebElement(randomElement);
     }
 
@@ -51,6 +54,12 @@ public class Products extends BasePage {
 
     public void scrollToProductDescription() {
         scrollToElement(productDescription);
+    }
+    public void openProduct(String name){
+        openProductByName(productTitleList, name);
+    }
+    public void waitForProductToBeClickable(){
+        waitForElementToBeClickable(driver, productTitleList.get(0));
     }
 
     public List<Double> getProductPriceList() {

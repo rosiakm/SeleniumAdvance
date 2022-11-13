@@ -1,10 +1,12 @@
 package models;
 
+import lombok.Getter;
+
+@Getter
 public class Product {
     private String productName;
     private double productPrice;
     private int quantity;
-
 
     public Product(String productName, double productPrice, int quantity) {
         this.productName = productName;

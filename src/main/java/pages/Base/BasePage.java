@@ -44,9 +44,6 @@ public class BasePage {
         element.clear();
         element.sendKeys(textToSet);
     }
-    public boolean isElementEnabled(WebElement element){
-        return element.isEnabled();
-    }
 
     public double getPrice(WebElement element){
         return Double.parseDouble(element.getText().replace(System.getProperty("currency"),""));
@@ -94,5 +91,15 @@ public class BasePage {
     }
     public void scrollToElement(WebElement element){
         actions.scrollToElement(element).perform();
+    }
+
+    public void openProductByName(List<WebElement> list, String productName){
+        for (WebElement tempProductName : list) {
+            String name = tempProductName.getText();
+            if(name.equals(productName)){
+                click(tempProductName);
+                break;
+            }
+        }
     }
 }
