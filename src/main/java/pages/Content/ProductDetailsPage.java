@@ -1,5 +1,6 @@
 package pages.Content;
 
+import models.Cart;
 import models.Product;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,10 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.Base.BasePage;
 
+import java.util.Random;
+
 import static helpers.WaitHandler.waitForElementToBeClickable;
 
-public class ProductDetails extends BasePage {
-    Logger log = LoggerFactory.getLogger(ProductDetails.class);
+public class ProductDetailsPage extends BasePage {
+    Logger log = LoggerFactory.getLogger(ProductDetailsPage.class);
 
     @FindBy(css = "h1[itemprop='name']")
     private WebElement productName;
@@ -24,7 +27,7 @@ public class ProductDetails extends BasePage {
     @FindBy(css = ".add-to-cart")
     private WebElement addToCartButton;
 
-    public ProductDetails(WebDriver driver){
+    public ProductDetailsPage(WebDriver driver){
         super(driver);
     }
 
@@ -37,17 +40,28 @@ public class ProductDetails extends BasePage {
     public Integer getQuantity(){
         return Integer.parseInt(getValue(quantityInput));
     }
-    public void clickOnAddToCartButton(){
+    public void addProductToCart(){
         click(addToCartButton);
     }
-    public void setQuantityInput(String text){
+    public void addProductToCart(Cart cart){
+        Product product = new Product(getProductName(),getProductPrice(),getQuantity(),getProductPrice()*getQuantity());
+        cart.addProduct(product);
+        click(addToCartButton);
+    }
+    public void setQuantity(String text){
         sendKeysAndClear(quantityInput, text);
+        log.info("quantity value: " + text);
     }
     public void waitForQuantityInputToBeClickable(){
         waitForElementToBeClickable(driver,quantityInput);
     }
-    public Product returnNewProduct(){
-        return new Product(getProductName(), getProductPrice(), getQuantity());
+    public void setRandomQuantity(int minQuantity, int maxQuantity){
+        String quantity = getRandomQuantity(minQuantity, maxQuantity);
+        sendKeysAndClear(quantityInput,quantity);
+        log.info("quantity value: " + quantity);
     }
-
+    private String getRandomQuantity(int minQuantity, int maxQuantity){
+        Random random = new Random();
+        return String.valueOf(random.nextInt(minQuantity, maxQuantity));
+    }
 }

@@ -8,20 +8,20 @@ import org.junit.jupiter.api.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DisplayingProductsTest extends Pages {
-    private Logger log = LoggerFactory.getLogger(DisplayingProductsTest.class);
+public class DisplayingProductsTestGridPage extends Pages {
+    private Logger log = LoggerFactory.getLogger(DisplayingProductsTestGridPage.class);
     SoftAssertions softly = new SoftAssertions();
 
     @RepeatedTest(10)
     @DisplayName("Categories test")
     @Tag("categories")
     public void checkTheCategoriesHeadersTest(){
-        for (String categoryName : categories.getCategoryNames()) {
+        for (String categoryName : categoriesMenuPage.getCategoryNames()) {
             log.info("My category name is: " + categoryName);
-            categories.getCategoryButtonByName().get(categoryName).click();
-            softly.assertThat(productListHeader.getCategoryLabelText()).isEqualTo(categoryName);
-            int numberOfDisplayingProducts = products.getTheNumberOfProducts();
-            softly.assertThat(products.getTextOfSearchSummary()).isEqualTo("There are " +
+            categoriesMenuPage.getCategoryButtonByName().get(categoryName).click();
+            softly.assertThat(categoryHeaderPage.getCategoryLabelText()).isEqualTo(categoryName);
+            int numberOfDisplayingProducts = productsGridPage.getTheNumberOfProducts();
+            softly.assertThat(productsGridPage.getTextOfSearchSummary()).isEqualTo("There are " +
                     numberOfDisplayingProducts + " products.");
             softly.assertAll();
         }
@@ -31,12 +31,12 @@ public class DisplayingProductsTest extends Pages {
     @DisplayName("Price filter test")
     @Tag("filters")
     public void checkPriceFilterTest(){
-        categories.clickOnArtButton();
-        price.scrollToPriceFilter();
-        price.moveLeftSliderHandlerToSpecificRange();
-        price.moveRightSliderHandlerToSpecificRange();
-        products.scrollToProductDescription();
-        for (double productPrice : products.getProductPriceList()) {
+        categoriesMenuPage.openArtCategory();
+        filtersPage.scrollToPriceFilter();
+        filtersPage.moveLeftSliderHandlerToSpecificRange();
+        filtersPage.moveRightSliderHandlerToSpecificRange();
+        productsGridPage.scrollToProductDescription();
+        for (double productPrice : productsGridPage.getProductPrices()) {
             softly.assertThat(productPrice).isBetween(Double.valueOf(System.getProperty("minimumPrice")),
                     Double.valueOf(System.getProperty("maximumPrice")));
         }

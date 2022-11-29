@@ -1,6 +1,5 @@
 package pages.Content;
 
-import helpers.WaitHandler;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,8 +13,9 @@ import java.util.Random;
 
 import static helpers.WaitHandler.waitForElementToBeClickable;
 
-public class Products extends BasePage {
-    private Logger log = LoggerFactory.getLogger(Products.class);
+public class ProductsGridPage extends BasePage {
+    private Logger log = LoggerFactory.getLogger(ProductsGridPage.class);
+    Random random = new Random();
 
     @FindBy(css = "div[class='products row']")
     private WebElement allProducts;
@@ -30,16 +30,17 @@ public class Products extends BasePage {
     @FindBy(css = "#js-product-list-top p")
     private WebElement summaryOfSearchText;
 
-    public Products(WebDriver driver) {
+    public ProductsGridPage(WebDriver driver) {
         super(driver);
     }
 
     public String getRandomProductName() {
-        Random random = new Random();
         WebElement randomElement = productTitleList.get(random.nextInt(productTitleList.size()));
         return getTextOfWebElement(randomElement);
     }
-
+    public void openRandomProductDetails(){
+        click(productList.get(random.nextInt(productList.size())));
+    }
     public int getTheNumberOfProducts() {
         return productList.size();
     }
@@ -55,14 +56,20 @@ public class Products extends BasePage {
     public void scrollToProductDescription() {
         scrollToElement(productDescription);
     }
-    public void openProduct(String name){
-        openProductByName(productTitleList, name);
+    public void openProductByName(String productName){
+        for (WebElement tempProductName : productTitleList) {
+            String name = tempProductName.getText();
+            if(name.equals(productName)){
+                click(tempProductName);
+                break;
+            }
+        }
     }
     public void waitForProductToBeClickable(){
         waitForElementToBeClickable(driver, productTitleList.get(0));
     }
 
-    public List<Double> getProductPriceList() {
+    public List<Double> getProductPrices() {
         List<Double> productPriceList = new ArrayList<>();
         for (WebElement productPrice : priceList) {
             wait.until(driver -> productPrice.isEnabled());

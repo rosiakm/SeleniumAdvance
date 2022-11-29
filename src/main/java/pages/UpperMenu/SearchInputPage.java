@@ -11,8 +11,8 @@ import java.util.List;
 
 import static helpers.WaitHandler.waitForElementToBeVisible;
 
-public class Search extends BasePage {
-    private Logger log = LoggerFactory.getLogger(Search.class);
+public class SearchInputPage extends BasePage {
+    private Logger log = LoggerFactory.getLogger(SearchInputPage.class);
 
     @FindBy(css = "input[type='text']")
     private WebElement searchInput;
@@ -23,17 +23,17 @@ public class Search extends BasePage {
     @FindBy(css = "#ui-id-1 span[class='product']")
     private List<WebElement> searchedItems;
 
-    public Search (WebDriver driver){
+    public SearchInputPage(WebDriver driver){
         super(driver);
     }
 
     public void populateSearchInput(String input){
         sendKeys(searchInput, input);
     }
-    public void clickSearchButton(){
+    public void openSearchResults(){
         click(searchButton);
     }
-    public List<String> createProductNameList(){
+    public List<String> getProductNames(){
         waitForElementToBeVisible(driver, searchDropDownList);
         return getNames(searchedItems);
     }

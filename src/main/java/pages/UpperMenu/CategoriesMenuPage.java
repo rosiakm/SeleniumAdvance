@@ -7,11 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.Base.BasePage;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Categories extends BasePage {
-    private Logger log = LoggerFactory.getLogger(Categories.class);
+public class CategoriesMenuPage extends BasePage {
+    private Logger log = LoggerFactory.getLogger(CategoriesMenuPage.class);
 
     @FindBy(css = "#category-3")
     private WebElement clothesButton;
@@ -24,20 +25,14 @@ public class Categories extends BasePage {
     @FindBy(css = "img[alt='TesterSii']")
     private WebElement imageButton;
 
-    public Categories(WebDriver driver){
+    public CategoriesMenuPage(WebDriver driver){
         super(driver);
     }
 
-    public void clickOnClothesButton(){
-        click(clothesButton);
-    }
-    public void clickOnAccessoriesButton(){
-        click(accessoriesButton);
-    }
-    public void clickOnArtButton(){
+    public void openArtCategory(){
         click(artButton);
     }
-    public void clickOnImageButton(){
+    public void moveToMainPage(){
         click(imageButton);
     }
     public List<String> getCategoryNames(){
@@ -45,5 +40,12 @@ public class Categories extends BasePage {
     }
     public Map<String,WebElement> getCategoryButtonByName(){
         return getWebElementByName(getCategoryNames(),categoryList);
+    }
+    private Map<String,WebElement> getWebElementByName(List<String> name, List<WebElement> list){
+        Map<String,WebElement> categories = new HashMap<>();
+        for(int i = 0; i < list.size(); i++){
+            categories.put(name.get(i), list.get(i));
+        }
+        return categories;
     }
 }

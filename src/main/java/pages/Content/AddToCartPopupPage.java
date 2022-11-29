@@ -1,6 +1,5 @@
 package pages.Content;
 
-import helpers.WaitHandler;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,8 +9,8 @@ import pages.Base.BasePage;
 
 import static helpers.WaitHandler.waitForElementToBeClickable;
 
-public class Popup extends BasePage {
-    Logger log = LoggerFactory.getLogger(Popup.class);
+public class AddToCartPopupPage extends BasePage {
+    Logger log = LoggerFactory.getLogger(AddToCartPopupPage.class);
 
     @FindBy(css = ".product-name")
     private WebElement productName;
@@ -23,8 +22,10 @@ public class Popup extends BasePage {
     private WebElement summaryText;
     @FindBy(css = "a.btn")
     private WebElement proceedToCheckoutButton;
+    @FindBy(css = ".btn-secondary")
+    private WebElement continueShoppingButton;
 
-    public Popup(WebDriver driver) {
+    public AddToCartPopupPage(WebDriver driver) {
         super(driver);
     }
 
@@ -43,8 +44,12 @@ public class Popup extends BasePage {
     public String getSummaryText() {
         return getTextOfWebElement(summaryText);
     }
-    public void clickOnProceedToCheckoutButton(){
+    public void proceedToCheckout(){
         click(proceedToCheckoutButton);
+    }
+    public void continueShopping(){
+        waitForElementToBeClickable(driver,continueShoppingButton);
+        click(continueShoppingButton);
     }
     public void waitForProceedToCheckoutButtonToBeClickable(){
         waitForElementToBeClickable(driver,proceedToCheckoutButton);

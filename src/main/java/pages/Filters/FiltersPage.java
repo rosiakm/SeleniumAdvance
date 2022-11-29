@@ -1,5 +1,6 @@
 package pages.Filters;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,8 +10,8 @@ import pages.Base.BasePage;
 
 import static helpers.WaitHandler.waitForElementToBeVisible;
 
-public class Price extends BasePage {
-    private Logger log = LoggerFactory.getLogger(Price.class);
+public class FiltersPage extends BasePage {
+    private Logger log = LoggerFactory.getLogger(FiltersPage.class);
 
     @FindBy(css = "[data-slider-label] p")
     private WebElement priceRangeLabel;
@@ -19,7 +20,7 @@ public class Price extends BasePage {
     @FindBy(css = "a.ui-slider-handle:nth-child(2)")
     private WebElement sliderLeftHandler;
 
-    public Price(WebDriver driver){
+    public FiltersPage(WebDriver driver){
         super(driver);
     }
 
@@ -42,5 +43,20 @@ public class Price extends BasePage {
     }
     public void scrollToPriceFilter(){
         scrollToElement(sliderRightHandler);
+    }
+    private void moveSlider(WebElement element, double price, double edge){
+        while (price != edge){
+            if(price > edge){
+                wait.until(driver -> element.isEnabled());
+                actions.clickAndHold(element).sendKeys(Keys.ARROW_RIGHT).perform();
+                edge++;
+            }
+            else {
+                wait.until(driver -> element.isEnabled());
+                actions.clickAndHold(element).sendKeys(Keys.ARROW_LEFT).perform();
+                edge--;
+            }
+        }
+        wait.until(driver -> element.isEnabled());
     }
 }

@@ -18,3 +18,6 @@ testData:
   basketPopupGenericProductName: THE BEST IS YET POSTER
   shippingPrice: 7.00
   basketCalculationsTestIterations: 5
+  minQuantity: 1
+  maxQuantity: 5
+

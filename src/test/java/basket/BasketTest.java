@@ -1,11 +1,14 @@
 package basket;
 
 import base.Pages;
+import models.Cart;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BasketTest extends Pages {
     Logger log = LoggerFactory.getLogger(BasketTest.class);
@@ -15,21 +18,40 @@ public class BasketTest extends Pages {
     @Tag("popup")
     @Tag("basket")
     public void popupTest(){
-        categories.clickOnArtButton();
-        products.waitForProductToBeClickable();
-        products.openProduct(System.getProperty("basketPopupGenericProductName"));
-        productDetails.waitForQuantityInputToBeClickable();
-        Double productPrice = productDetails.getProductPrice();
-        productDetails.setQuantityInput(System.getProperty("basketPopupGenericQuantity"));
-        productDetails.clickOnAddToCartButton();
-        popup.waitForProceedToCheckoutButtonToBeClickable();
-        softly.assertThat(popup.getProductName()).isEqualTo(System.getProperty("basketPopupGenericProductName"));
-        softly.assertThat(popup.getProductPrice()).isEqualTo(productPrice);
-        softly.assertThat(popup.getTotalPrice()).isEqualTo((productPrice)*
+        categoriesMenuPage.openArtCategory();
+        productsGridPage.waitForProductToBeClickable();
+        productsGridPage.openProductByName(System.getProperty("basketPopupGenericProductName"));
+        productDetailsPage.waitForQuantityInputToBeClickable();
+        Double productPrice = productDetailsPage.getProductPrice();
+        productDetailsPage.setQuantity(System.getProperty("basketPopupGenericQuantity"));
+        productDetailsPage.addProductToCart();
+        addToCartPopupPage.waitForProceedToCheckoutButtonToBeClickable();
+        softly.assertThat(addToCartPopupPage.getProductName()).isEqualTo(System.getProperty("basketPopupGenericProductName"));
+        softly.assertThat(addToCartPopupPage.getProductPrice()).isEqualTo(productPrice);
+        softly.assertThat(addToCartPopupPage.getTotalPrice()).isEqualTo((productPrice)*
                 Double.parseDouble(System.getProperty("basketPopupGenericQuantity"))+
                 Double.parseDouble(System.getProperty("shippingPrice"))
         );
-        log.info("My total price is: " + System.getProperty("currency") + popup.getTotalPrice());
+        log.info("My total price is: " + System.getProperty("currency") + addToCartPopupPage.getTotalPrice());
         softly.assertAll();
+    }
+
+    @RepeatedTest(10)
+    @Tag("Cart")
+    @Tag("Basket")
+    public void basketCalculationTest(){
+        Cart expectedCart = new Cart();
+
+        for (int i = 0; i < Integer.parseInt(System.getProperty("basketCalculationsTestIterations")); i++){
+            productsGridPage.openRandomProductDetails();
+            productDetailsPage.setRandomQuantity(Integer.parseInt(System.getProperty("minQuantity")),
+                    Integer.parseInt(System.getProperty("maxQuantity")));
+            productDetailsPage.addProductToCart(expectedCart);
+            addToCartPopupPage.continueShopping();
+            categoriesMenuPage.moveToMainPage();
+        }
+        upperMenuPage.openCart();
+        Cart actualCart = cartPage.toCart();
+        assertThat(actualCart).usingRecursiveComparison().isEqualTo(expectedCart);
     }
 }
