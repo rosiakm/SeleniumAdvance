@@ -23,11 +23,11 @@ public class DisplayingProductsTestGridPage extends Pages {
             int numberOfDisplayingProducts = productsGridPage.getTheNumberOfProducts();
             softly.assertThat(productsGridPage.getTextOfSearchSummary()).isEqualTo("There are " +
                     numberOfDisplayingProducts + " products.");
-            softly.assertAll();
         }
+        softly.assertAll();
     }
 
-    @RepeatedTest(1)
+    @RepeatedTest(10)
     @DisplayName("Price filter test")
     @Tag("filters")
     public void checkPriceFilterTest(){

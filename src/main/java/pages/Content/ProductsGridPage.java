@@ -57,6 +57,7 @@ public class ProductsGridPage extends BasePage {
         scrollToElement(productDescription);
     }
     public void openProductByName(String productName){
+        waitForElementToBeClickable(driver, productTitleList.get(0));
         for (WebElement tempProductName : productTitleList) {
             String name = tempProductName.getText();
             if(name.equals(productName)){
@@ -65,10 +66,6 @@ public class ProductsGridPage extends BasePage {
             }
         }
     }
-    public void waitForProductToBeClickable(){
-        waitForElementToBeClickable(driver, productTitleList.get(0));
-    }
-
     public List<Double> getProductPrices() {
         List<Double> productPriceList = new ArrayList<>();
         for (WebElement productPrice : priceList) {

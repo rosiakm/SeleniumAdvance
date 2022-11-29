@@ -41,12 +41,6 @@ public class AddToCartPopupPage extends BasePage {
         return getPrice(totalPrice);
     }
 
-    public String getSummaryText() {
-        return getTextOfWebElement(summaryText);
-    }
-    public void proceedToCheckout(){
-        click(proceedToCheckoutButton);
-    }
     public void continueShopping(){
         waitForElementToBeClickable(driver,continueShoppingButton);
         click(continueShoppingButton);

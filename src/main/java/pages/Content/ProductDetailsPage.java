@@ -49,6 +49,7 @@ public class ProductDetailsPage extends BasePage {
         click(addToCartButton);
     }
     public void setQuantity(String text){
+        waitForElementToBeClickable(driver,quantityInput);
         sendKeysAndClear(quantityInput, text);
         log.info("quantity value: " + text);
     }
