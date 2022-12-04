@@ -1,37 +1,45 @@
 package base;
 
 import org.junit.jupiter.api.BeforeEach;
-import pages.Cart.CartPage;
-import pages.Content.AddToCartPopupPage;
-import pages.Content.ProductDetailsPage;
-import pages.Content.CategoryHeaderPage;
-import pages.Content.ProductsGridPage;
-import pages.Filters.FiltersPage;
-import pages.UpperMenu.CategoriesMenuPage;
-import pages.UpperMenu.SearchInputPage;
-import pages.UpperMenu.UpperMenuPage;
+import pages.cart.CartPage;
+import pages.menu.TopMenuPage;
+import pages.products.*;
+import pages.filters.FiltersPage;
+import pages.logIn.LogInPage;
+import pages.checkout.OrderDetailsPage;
+import pages.checkout.OrderHistoryPage;
+import pages.checkout.OrderSummaryPage;
+import pages.checkout.CheckoutFormPage;
 
 public class Pages extends TestBase{
 
     public ProductsGridPage productsGridPage;
-    public CategoryHeaderPage categoryHeaderPage;
+    public ProductGridHeaderPage productGridHeaderPage;
     public FiltersPage filtersPage;
-    public CategoriesMenuPage categoriesMenuPage;
-    public SearchInputPage searchInputPage;
+    public TopMenuPage topMenuPage;
     public CartPage cartPage;
     public AddToCartPopupPage addToCartPopupPage;
     public ProductDetailsPage productDetailsPage;
-    public UpperMenuPage upperMenuPage;
+    public MyAccountPage myAccountPage;
+    public LogInPage logInPage;
+    public OrderDetailsPage orderDetailsPage;
+    public OrderHistoryPage orderHistoryPage;
+    public OrderSummaryPage orderSummaryPage;
+    public CheckoutFormPage checkoutFormPage;
     @BeforeEach
     public void setPageInstance(){
         productsGridPage = new ProductsGridPage(driver);
-        categoryHeaderPage = new CategoryHeaderPage(driver);
+        productGridHeaderPage = new ProductGridHeaderPage(driver);
         filtersPage = new FiltersPage(driver);
-        categoriesMenuPage = new CategoriesMenuPage(driver);
-        searchInputPage = new SearchInputPage(driver);
+        topMenuPage = new TopMenuPage(driver);
         cartPage = new CartPage(driver);
         addToCartPopupPage = new AddToCartPopupPage(driver);
         productDetailsPage = new ProductDetailsPage(driver);
-        upperMenuPage = new UpperMenuPage(driver);
+        myAccountPage = new MyAccountPage(driver);
+        logInPage = new LogInPage(driver);
+        orderDetailsPage = new OrderDetailsPage(driver);
+        orderHistoryPage = new OrderHistoryPage(driver);
+        orderSummaryPage = new OrderSummaryPage(driver);
+        checkoutFormPage = new CheckoutFormPage(driver);
     }
 }

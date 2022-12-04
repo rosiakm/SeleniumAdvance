@@ -17,8 +17,8 @@ public class SearchInputPageTest extends Pages {
     @Tag("search")
     public void checkCompatibilityOfSearchedProductsTest(){
         String input = productsGridPage.getRandomProductName();
-        searchInputPage.populateSearchInput(input);
-        searchInputPage.openSearchResults();
+        topMenuPage.populateSearchInput(input);
+        topMenuPage.openSearchResults();
         softly.assertThat(productsGridPage.getTheNumberOfProducts()).isEqualTo(Integer.parseInt(System.getProperty("expectedNumberOfProducts")));
         softly.assertThat(productsGridPage.getProductName()).isEqualTo(input);
         softly.assertAll();
@@ -28,8 +28,8 @@ public class SearchInputPageTest extends Pages {
     @DisplayName("Dropdown Search Test")
     @Tag("search")
     public void checkDropdownSearchPromptsTest(){
-        searchInputPage.populateSearchInput(System.getProperty("searchInput"));
-        for (String productName : searchInputPage.getProductNames()) {
+        topMenuPage.populateSearchInput(System.getProperty("searchInput"));
+        for (String productName : topMenuPage.getProductNames()) {
             softly.assertThat(productName).contains(System.getProperty("searchInput"));
         }
         softly.assertAll();

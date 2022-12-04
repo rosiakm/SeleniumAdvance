@@ -16,10 +16,10 @@ public class DisplayingProductsTestGridPage extends Pages {
     @DisplayName("Categories test")
     @Tag("categories")
     public void checkTheCategoriesHeadersTest(){
-        for (String categoryName : categoriesMenuPage.getCategoryNames()) {
+        for (String categoryName : topMenuPage.getCategoryNames()) {
             log.info("My category name is: " + categoryName);
-            categoriesMenuPage.getCategoryButtonByName().get(categoryName).click();
-            softly.assertThat(categoryHeaderPage.getCategoryLabelText()).isEqualTo(categoryName);
+            topMenuPage.getCategoryButtonByName().get(categoryName).click();
+            softly.assertThat(productGridHeaderPage.getCategoryLabelText()).isEqualTo(categoryName);
             int numberOfDisplayingProducts = productsGridPage.getTheNumberOfProducts();
             softly.assertThat(productsGridPage.getTextOfSearchSummary()).isEqualTo("There are " +
                     numberOfDisplayingProducts + " products.");
@@ -31,7 +31,7 @@ public class DisplayingProductsTestGridPage extends Pages {
     @DisplayName("Price filter test")
     @Tag("filters")
     public void checkPriceFilterTest(){
-        categoriesMenuPage.openArtCategory();
+        topMenuPage.openArtCategory();
         filtersPage.scrollToPriceFilter();
         filtersPage.moveLeftSliderHandlerToSpecificRange();
         filtersPage.moveRightSliderHandlerToSpecificRange();

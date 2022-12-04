@@ -14,11 +14,11 @@ public class BasketTest extends Pages {
     Logger log = LoggerFactory.getLogger(BasketTest.class);
     SoftAssertions softly = new SoftAssertions();
 
-    @RepeatedTest(1)
+    @RepeatedTest(10)
     @Tag("popup")
     @Tag("basket")
     public void popupTest(){
-        categoriesMenuPage.openArtCategory();
+        topMenuPage.openArtCategory();
         productsGridPage.openProductByName(System.getProperty("basketPopupGenericProductName"));
         productDetailsPage.setQuantity(System.getProperty("basketPopupGenericQuantity"));
         Double productPrice = productDetailsPage.getProductPrice();
@@ -46,9 +46,9 @@ public class BasketTest extends Pages {
                     Integer.parseInt(System.getProperty("maxQuantity")));
             productDetailsPage.addProductToCart(expectedCart);
             addToCartPopupPage.continueShopping();
-            categoriesMenuPage.moveToMainPage();
+            topMenuPage.moveToMainPage();
         }
-        upperMenuPage.openCart();
+        topMenuPage.openCart();
         Cart actualCart = cartPage.toCart();
         assertThat(actualCart).usingRecursiveComparison().isEqualTo(expectedCart);
     }

@@ -1,4 +1,4 @@
-package pages.Content;
+package pages.products;
 
 import models.Cart;
 import models.Product;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.Base.BasePage;
+import pages.base.BasePage;
 
 import java.util.Random;
 

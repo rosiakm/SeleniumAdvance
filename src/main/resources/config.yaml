@@ -13,11 +13,11 @@ testData:
   positionOfMinimumPrice: 0
   positionOfMaximumPrice: 1
   email: MatRos@sii.pl
-  password: abcD1234
+  password: java1
   basketPopupGenericQuantity: 3
   basketPopupGenericProductName: THE BEST IS YET POSTER
   shippingPrice: 7.00
   basketCalculationsTestIterations: 5
   minQuantity: 1
   maxQuantity: 5
-
+  paymentStatus: Awaiting check payment

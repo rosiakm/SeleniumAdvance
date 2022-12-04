@@ -1,4 +1,4 @@
-package pages.Filters;
+package pages.filters;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pages.Base.BasePage;
+import pages.base.BasePage;
 
 import static helpers.WaitHandler.waitForElementToBeVisible;
 
