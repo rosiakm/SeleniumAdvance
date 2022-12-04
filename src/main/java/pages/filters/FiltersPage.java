@@ -34,15 +34,17 @@ public class FiltersPage extends BasePage {
     public double getMaximumPriceRange(){
         return getPrice(priceRangeLabel,Integer.parseInt(System.getProperty("positionOfMaximumPrice")));
     }
-    public void moveLeftSliderHandlerToSpecificRange(){
+    public FiltersPage moveLeftSliderHandlerToSpecificRange(){
         moveSlider(sliderLeftHandler, Double.parseDouble(System.getProperty("minimumPrice")), getMinimumPriceRange());
+        return this;
     }
     public void moveRightSliderHandlerToSpecificRange(){
         getMaximumPriceRange();
         moveSlider(sliderRightHandler,Double.parseDouble(System.getProperty("maximumPrice")),getMaximumPriceRange());
     }
-    public void scrollToPriceFilter(){
+    public FiltersPage scrollToPriceFilter(){
         scrollToElement(sliderRightHandler);
+        return this;
     }
     private void moveSlider(WebElement element, double price, double edge){
         while (price != edge){

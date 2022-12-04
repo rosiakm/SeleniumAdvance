@@ -56,10 +56,11 @@ public class ProductDetailsPage extends BasePage {
     public void waitForQuantityInputToBeClickable(){
         waitForElementToBeClickable(driver,quantityInput);
     }
-    public void setRandomQuantity(int minQuantity, int maxQuantity){
+    public ProductDetailsPage setRandomQuantity(int minQuantity, int maxQuantity){
         String quantity = getRandomQuantity(minQuantity, maxQuantity);
         sendKeysAndClear(quantityInput,quantity);
         log.info("quantity value: " + quantity);
+        return this;
     }
     private String getRandomQuantity(int minQuantity, int maxQuantity){
         Random random = new Random();

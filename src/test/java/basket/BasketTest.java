@@ -17,17 +17,16 @@ public class BasketTest extends Pages {
     @RepeatedTest(10)
     @Tag("popup")
     @Tag("basket")
-    public void popupTest(){
+    public void popupTest() {
         topMenuPage.openArtCategory();
         productsGridPage.openProductByName(System.getProperty("basketPopupGenericProductName"));
         productDetailsPage.setQuantity(System.getProperty("basketPopupGenericQuantity"));
         Double productPrice = productDetailsPage.getProductPrice();
         productDetailsPage.addProductToCart();
-        addToCartPopupPage.waitForProceedToCheckoutButtonToBeClickable();
         softly.assertThat(addToCartPopupPage.getProductName()).isEqualTo(System.getProperty("basketPopupGenericProductName"));
         softly.assertThat(addToCartPopupPage.getProductPrice()).isEqualTo(productPrice);
-        softly.assertThat(addToCartPopupPage.getTotalPrice()).isEqualTo((productPrice)*
-                Double.parseDouble(System.getProperty("basketPopupGenericQuantity"))+
+        softly.assertThat(addToCartPopupPage.getTotalPrice()).isEqualTo((productPrice) *
+                Double.parseDouble(System.getProperty("basketPopupGenericQuantity")) +
                 Double.parseDouble(System.getProperty("shippingPrice"))
         );
         log.info("My total price is: " + System.getProperty("currency") + addToCartPopupPage.getTotalPrice());
@@ -37,14 +36,14 @@ public class BasketTest extends Pages {
     @RepeatedTest(10)
     @Tag("Cart")
     @Tag("Basket")
-    public void basketCalculationTest(){
+    public void basketCalculationTest() {
         Cart expectedCart = new Cart();
 
-        for (int i = 0; i < Integer.parseInt(System.getProperty("basketCalculationsTestIterations")); i++){
+        for (int i = 0; i < Integer.parseInt(System.getProperty("basketCalculationsTestIterations")); i++) {
             productsGridPage.openRandomProductDetails();
             productDetailsPage.setRandomQuantity(Integer.parseInt(System.getProperty("minQuantity")),
-                    Integer.parseInt(System.getProperty("maxQuantity")));
-            productDetailsPage.addProductToCart(expectedCart);
+                            Integer.parseInt(System.getProperty("maxQuantity")))
+                    .addProductToCart(expectedCart);
             addToCartPopupPage.continueShopping();
             topMenuPage.moveToMainPage();
         }

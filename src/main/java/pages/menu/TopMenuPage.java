@@ -57,8 +57,9 @@ public class TopMenuPage extends BasePage {
     public void openMyAccountMenu() {
         click(myAccountLink);
     }
-    public void populateSearchInput(String input) {
+    public TopMenuPage populateSearchInput(String input) {
         sendKeys(searchInput, input);
+        return this;
     }
 
     public void openSearchResults() {

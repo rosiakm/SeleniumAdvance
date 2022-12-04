@@ -15,7 +15,7 @@ public class ProductsGridTest extends Pages {
     @RepeatedTest(10)
     @DisplayName("Categories test")
     @Tag("categories")
-    public void checkTheCategoriesHeadersTest(){
+    public void checkTheCategoriesHeadersTest() {
         for (String categoryName : topMenuPage.getCategoryNames()) {
             log.info("My category name is: " + categoryName);
             topMenuPage.getCategoryButtonByName().get(categoryName).click();
@@ -30,11 +30,11 @@ public class ProductsGridTest extends Pages {
     @RepeatedTest(10)
     @DisplayName("Price filter test")
     @Tag("filters")
-    public void checkPriceFilterTest(){
+    public void checkPriceFilterTest() {
         topMenuPage.openArtCategory();
-        filtersPage.scrollToPriceFilter();
-        filtersPage.moveLeftSliderHandlerToSpecificRange();
-        filtersPage.moveRightSliderHandlerToSpecificRange();
+        filtersPage.scrollToPriceFilter()
+                .moveLeftSliderHandlerToSpecificRange()
+                .moveRightSliderHandlerToSpecificRange();
         productsGridPage.scrollToProductDescription();
         for (double productPrice : productsGridPage.getProductPrices()) {
             softly.assertThat(productPrice).isBetween(Double.valueOf(System.getProperty("minimumPrice")),

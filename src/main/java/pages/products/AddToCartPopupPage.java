@@ -31,6 +31,7 @@ public class AddToCartPopupPage extends BasePage {
     }
 
     public String getProductName() {
+        waitForElementToBeVisible(driver, productName);
         return getTextOfWebElement(productName);
     }
 
@@ -51,8 +52,4 @@ public class AddToCartPopupPage extends BasePage {
         waitForElementToBeClickable(driver,proceedToCheckoutButton);
         click(proceedToCheckoutButton);
     }
-    public void waitForProceedToCheckoutButtonToBeClickable(){
-        waitForElementToBeClickable(driver,proceedToCheckoutButton);
-    }
-
 }
