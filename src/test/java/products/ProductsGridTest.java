@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DisplayingProductsTestGridPage extends Pages {
-    private Logger log = LoggerFactory.getLogger(DisplayingProductsTestGridPage.class);
+public class ProductsGridTest extends Pages {
+    private Logger log = LoggerFactory.getLogger(ProductsGridTest.class);
     SoftAssertions softly = new SoftAssertions();
 
     @RepeatedTest(10)
