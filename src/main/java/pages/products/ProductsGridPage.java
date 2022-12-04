@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 import static helpers.WaitHandler.waitForElementToBeClickable;
+import static helpers.WaitHandler.waitForElementToBeVisible;
 
 public class ProductsGridPage extends BasePage {
     private Logger log = LoggerFactory.getLogger(ProductsGridPage.class);
@@ -29,6 +30,8 @@ public class ProductsGridPage extends BasePage {
     private WebElement productDescription;
     @FindBy(css = "#js-product-list-top p")
     private WebElement summaryOfSearchText;
+    @FindBy(css = "#js-product-list-header h1")
+    private WebElement categoryHeaderLabel;
 
     public ProductsGridPage(WebDriver driver) {
         super(driver);
@@ -38,9 +41,11 @@ public class ProductsGridPage extends BasePage {
         WebElement randomElement = productTitleList.get(random.nextInt(productTitleList.size()));
         return getTextOfWebElement(randomElement);
     }
-    public void openRandomProductDetails(){
+
+    public void openRandomProductDetails() {
         click(productList.get(random.nextInt(productList.size())));
     }
+
     public int getTheNumberOfProducts() {
         return productList.size();
     }
@@ -56,11 +61,12 @@ public class ProductsGridPage extends BasePage {
     public void scrollToProductDescription() {
         scrollToElement(productDescription);
     }
-    public void openProductByName(String productName){
+
+    public void openProductByName(String productName) {
         waitForElementToBeClickable(driver, productTitleList.get(0));
         for (WebElement tempProductName : productTitleList) {
             String name = tempProductName.getText();
-            if(name.equals(productName)){
+            if (name.equals(productName)) {
                 click(tempProductName);
                 break;
             }
@@ -74,5 +80,9 @@ public class ProductsGridPage extends BasePage {
         }
         return productPriceList;
     }
-
+    public String getCategoryLabelText() {
+        waitForElementToBeVisible(driver, categoryHeaderLabel);
+        return getTextOfWebElement(categoryHeaderLabel);
+    }
 }
+

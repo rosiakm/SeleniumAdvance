@@ -19,7 +19,7 @@ public class DisplayingProductsTestGridPage extends Pages {
         for (String categoryName : topMenuPage.getCategoryNames()) {
             log.info("My category name is: " + categoryName);
             topMenuPage.getCategoryButtonByName().get(categoryName).click();
-            softly.assertThat(productGridHeaderPage.getCategoryLabelText()).isEqualTo(categoryName);
+            softly.assertThat(productsGridPage.getCategoryLabelText()).isEqualTo(categoryName);
             int numberOfDisplayingProducts = productsGridPage.getTheNumberOfProducts();
             softly.assertThat(productsGridPage.getTextOfSearchSummary()).isEqualTo("There are " +
                     numberOfDisplayingProducts + " products.");
