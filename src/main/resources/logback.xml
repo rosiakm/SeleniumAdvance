@@ -12,23 +12,6 @@
             <pattern>%highlight(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--        <file>${DEV_HOME}/mojPlikBezNazwy.log</file>&ndash;&gt;-->
-        <file>${DEV_HOME}/timeBasedlogFile_${bySecond}.log</file>  <!-- z timestamp-->
-        <!--        <file>${DEV_HOME}/timeBasedlogFile.log</file>-->
-        <!--        <append>true</append>-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- daily rollover -->
-            <fileNamePattern>${DEV_HOME}/timeBasedlogFile.%d{yyyy-MM-dd-HH-mm}.zip</fileNamePattern>
-            <maxHistory>3</maxHistory>
-            <totalSizeCap>30KB</totalSizeCap>
-        </rollingPolicy>
-        <encoder>
-            <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
-
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
