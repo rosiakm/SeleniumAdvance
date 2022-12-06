@@ -2,6 +2,7 @@ browser:
   browserName: chrome
   headlessMode: true
   timeout: 10
+  polling_every_millis: 500
 environment:
   appUrl: http://146.59.32.4/index.php
 testData:
@@ -21,3 +22,6 @@ testData:
   minQuantity: 1
   maxQuantity: 5
   paymentStatus: Awaiting check payment
+  menCategoryText: T-shirts, sweaters, hoodies and men's accessories. From basics to original creations, for every style.
+  stationeryCategoryText: Notebooks, agendas, office accessories and more. Everything you need to combine the pleasant and the useful, either at work or at home.
+  artCategoryText: Framed poster and vector images, all you need to give personality to your walls or bring your creative projects to life.

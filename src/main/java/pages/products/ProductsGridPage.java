@@ -32,6 +32,8 @@ public class ProductsGridPage extends BasePage {
     private WebElement summaryOfSearchText;
     @FindBy(css = "#js-product-list-header h1")
     private WebElement categoryHeaderLabel;
+    @FindBy(css = "#category-description span")
+    private WebElement categoryText;
 
     public ProductsGridPage(WebDriver driver) {
         super(driver);
@@ -83,6 +85,10 @@ public class ProductsGridPage extends BasePage {
     public String getCategoryLabelText() {
         waitForElementToBeVisible(driver, categoryHeaderLabel);
         return getTextOfWebElement(categoryHeaderLabel);
+    }
+    public String getCategoryDescription(){
+        waitForElementToBeVisible(driver,categoryText);
+        return getTextOfWebElement(categoryText);
     }
 }
 

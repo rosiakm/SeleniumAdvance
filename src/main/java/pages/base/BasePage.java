@@ -1,9 +1,13 @@
 package pages.base;
 
+import helpers.WebListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Coordinates;
+import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.events.internal.EventFiringMouse;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +16,16 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static helpers.WaitHandler.waitForElementToBeClickable;
+import static helpers.WaitHandler.waitForElementToBeVisible;
+
 public class BasePage {
     private static final Logger log = LoggerFactory.getLogger(BasePage.class);
     public WebDriver driver;
     public Actions actions;
     public WebDriverWait wait;
+    private EventFiringMouse event;
+    private WebListener webListener = new WebListener();
 
     public BasePage(WebDriver driver){
         PageFactory.initElements(driver,this);
@@ -67,5 +76,21 @@ public class BasePage {
     public void scrollToElement(WebElement element){
         actions.scrollToElement(element).perform();
         log.info("Successfully scrolled to " + element);
+    }
+    protected void mouseHover(WebElement element){
+        waitForElementToBeClickable(driver, element);
+        event = new EventFiringMouse(driver,webListener);
+        Locatable item = (Locatable) element;
+        Coordinates coordinates = item.getCoordinates();
+        event.mouseMove(coordinates);
+        log.info("Mouse hover on element" + element.getText());
+    }
+    protected void clickUsingMouse(WebElement element){
+        waitForElementToBeClickable(driver,element);
+        event = new EventFiringMouse(driver,webListener);
+        Locatable item = (Locatable) element;
+        Coordinates coordinates = item.getCoordinates();
+        event.click(coordinates);
+        log.info("Mouse click on element" + element.getText());
     }
 }

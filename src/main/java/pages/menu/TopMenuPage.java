@@ -3,6 +3,7 @@ package pages.menu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.events.internal.EventFiringMouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.base.BasePage;
@@ -36,8 +37,12 @@ public class TopMenuPage extends BasePage {
     private List<WebElement> searchedItems;
     @FindBy(css = "#category-3")
     private WebElement clothesButton;
+    @FindBy(css = "#category-4")
+    private WebElement menClothesButton;
     @FindBy(css = "#category-6")
     private WebElement accessoriesButton;
+    @FindBy(css = "#category-7")
+    private WebElement stationeryAccessoriesButton;
     @FindBy(css = "#category-9")
     private WebElement artButton;
     @FindBy(css = "#top-menu >li")
@@ -45,11 +50,9 @@ public class TopMenuPage extends BasePage {
     @FindBy(css = "img[alt='TesterSii']")
     private WebElement imageButton;
 
-
     public void openCart() {
         click(cartButton);
     }
-
     public void openLoginPage() {
         click(signInButton);
     }
@@ -61,7 +64,6 @@ public class TopMenuPage extends BasePage {
         sendKeys(searchInput, input);
         return this;
     }
-
     public void openSearchResults() {
         click(searchButton);
     }
@@ -85,7 +87,6 @@ public class TopMenuPage extends BasePage {
     public Map<String, WebElement> getCategoryButtonByName() {
         return getWebElementByName(getCategoryNames(), categoryList);
     }
-
     private Map<String, WebElement> getWebElementByName(List<String> name, List<WebElement> list) {
         Map<String, WebElement> categories = new HashMap<>();
         for (int i = 0; i < list.size(); i++) {
@@ -93,5 +94,35 @@ public class TopMenuPage extends BasePage {
         }
         return categories;
     }
+    public TopMenuPage moveMouseToClothesCategory(){
+        mouseHover(clothesButton);
+        return this;
+    }
+    public TopMenuPage moveMouseToMenClothesCategory(){
+        mouseHover(menClothesButton);
+        return this;
+    }
+    public TopMenuPage moveMouseToAccessoriesCategory(){
+        mouseHover(accessoriesButton);
+        return this;
+    }
+    public TopMenuPage moveMouseToStationeryAccessoriesCategory(){
+        mouseHover(stationeryAccessoriesButton);
+        return this;
+    }
+    public TopMenuPage moveMouseToArtCategory(){
+        mouseHover(artButton);
+        return this;
+    }
+    public void openMenClothesCategoryUsingMouse(){
+        clickUsingMouse(menClothesButton);
+    }
+    public void openStationeryAccessoriesCategoryUsingMouse(){
+        clickUsingMouse(stationeryAccessoriesButton);
+    }
+    public void openArtCategoryUsingMouse(){
+        clickUsingMouse(artButton);
+    }
+
 }
 
