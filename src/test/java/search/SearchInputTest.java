@@ -17,8 +17,10 @@ public class SearchInputTest extends Pages {
     @Tag("search")
     public void checkCompatibilityOfSearchedProductsTest() {
         String input = productsGridPage.getRandomProductName();
+
         topMenuPage.populateSearchInput(input)
                 .openSearchResults();
+
         softly.assertThat(productsGridPage.getTheNumberOfProducts()).isEqualTo(Integer.parseInt(System.getProperty("expectedNumberOfProducts")));
         softly.assertThat(productsGridPage.getProductName()).isEqualTo(input);
         softly.assertAll();

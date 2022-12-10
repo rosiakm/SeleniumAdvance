@@ -1,9 +1,9 @@
 package pages.menu;
 
+import models.Categories;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.events.internal.EventFiringMouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.base.BasePage;
@@ -50,6 +50,23 @@ public class TopMenuPage extends BasePage {
     @FindBy(css = "img[alt='TesterSii']")
     private WebElement imageButton;
 
+    public void openCategory(Categories category){
+        switch (category)
+        {
+            case CLOTHES -> {
+                click(clothesButton);
+                break;
+            }
+            case ACCESSORIES -> {
+                click(accessoriesButton);
+                break;
+            }
+            case ART -> {
+                click(artButton);
+                break;
+            }
+        }
+    }
     public void openCart() {
         click(cartButton);
     }
@@ -72,9 +89,6 @@ public class TopMenuPage extends BasePage {
         waitForElementToBeVisible(driver, searchDropDownList);
         return getNames(searchedItems);
     }
-    public void openArtCategory() {
-        click(artButton);
-    }
 
     public void moveToMainPage() {
         click(imageButton);
@@ -83,7 +97,6 @@ public class TopMenuPage extends BasePage {
     public List<String> getCategoryNames() {
         return getNames(categoryList);
     }
-
     public Map<String, WebElement> getCategoryButtonByName() {
         return getWebElementByName(getCategoryNames(), categoryList);
     }
@@ -94,35 +107,48 @@ public class TopMenuPage extends BasePage {
         }
         return categories;
     }
-    public TopMenuPage moveMouseToClothesCategory(){
-        mouseHover(clothesButton);
+    public TopMenuPage moveMouseTo(Categories category){
+        switch (category)
+        {
+            case CLOTHES -> {
+                mouseHover(clothesButton);
+                break;
+            }
+            case ACCESSORIES -> {
+                mouseHover(accessoriesButton);
+                break;
+            }
+            case ART -> {
+                mouseHover(artButton);
+                break;
+            }
+            case MEN -> {
+                mouseHover(menClothesButton);
+                break;
+            }
+            case STATIONERY -> {
+                mouseHover(stationeryAccessoriesButton);
+                break;
+            }
+        }
         return this;
     }
-    public TopMenuPage moveMouseToMenClothesCategory(){
-        mouseHover(menClothesButton);
-        return this;
+    public void openCategoryUsingMouse(Categories category){
+        switch (category)
+        {
+            case MEN -> {
+                clickUsingMouse(menClothesButton);
+                break;
+            }
+            case STATIONERY -> {
+                clickUsingMouse(stationeryAccessoriesButton);
+                break;
+            }
+            case ART -> {
+                clickUsingMouse(artButton);
+                break;
+            }
+        }
     }
-    public TopMenuPage moveMouseToAccessoriesCategory(){
-        mouseHover(accessoriesButton);
-        return this;
-    }
-    public TopMenuPage moveMouseToStationeryAccessoriesCategory(){
-        mouseHover(stationeryAccessoriesButton);
-        return this;
-    }
-    public TopMenuPage moveMouseToArtCategory(){
-        mouseHover(artButton);
-        return this;
-    }
-    public void openMenClothesCategoryUsingMouse(){
-        clickUsingMouse(menClothesButton);
-    }
-    public void openStationeryAccessoriesCategoryUsingMouse(){
-        clickUsingMouse(stationeryAccessoriesButton);
-    }
-    public void openArtCategoryUsingMouse(){
-        clickUsingMouse(artButton);
-    }
-
 }
 

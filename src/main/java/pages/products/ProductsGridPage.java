@@ -9,14 +9,12 @@ import pages.base.BasePage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static helpers.WaitHandler.waitForElementToBeClickable;
 import static helpers.WaitHandler.waitForElementToBeVisible;
 
 public class ProductsGridPage extends BasePage {
     private Logger log = LoggerFactory.getLogger(ProductsGridPage.class);
-    Random random = new Random();
 
     @FindBy(css = "div[class='products row']")
     private WebElement allProducts;
@@ -40,12 +38,11 @@ public class ProductsGridPage extends BasePage {
     }
 
     public String getRandomProductName() {
-        WebElement randomElement = productTitleList.get(random.nextInt(productTitleList.size()));
-        return getTextOfWebElement(randomElement);
+        return getTextOfWebElement(getRandomWebElement(productTitleList, productTitleList.size()));
     }
 
     public void openRandomProductDetails() {
-        click(productList.get(random.nextInt(productList.size())));
+        click(getRandomWebElement(productTitleList, productTitleList.size()));
     }
 
     public int getTheNumberOfProducts() {
@@ -74,6 +71,7 @@ public class ProductsGridPage extends BasePage {
             }
         }
     }
+
     public List<Double> getProductPrices() {
         List<Double> productPriceList = new ArrayList<>();
         for (WebElement productPrice : priceList) {
@@ -82,12 +80,14 @@ public class ProductsGridPage extends BasePage {
         }
         return productPriceList;
     }
+
     public String getCategoryLabelText() {
         waitForElementToBeVisible(driver, categoryHeaderLabel);
         return getTextOfWebElement(categoryHeaderLabel);
     }
-    public String getCategoryDescription(){
-        waitForElementToBeVisible(driver,categoryText);
+
+    public String getCategoryDescription() {
+        waitForElementToBeVisible(driver, categoryText);
         return getTextOfWebElement(categoryText);
     }
 }

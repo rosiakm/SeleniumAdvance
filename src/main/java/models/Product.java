@@ -27,4 +27,9 @@ public class Product {
         this.totalPrice = Double.parseDouble(cartItem.findElement(By.cssSelector(".product-price strong")).getText().
                 replace(System.getProperty("currency"),""));
     }
+
+    public void increaseQuantity(int quantity) {
+        this.quantity += quantity;
+        this.totalPrice = productPrice*this.quantity;
+    }
 }

@@ -34,11 +34,11 @@ public class FiltersPage extends BasePage {
     public double getMaximumPriceRange(){
         return getPrice(priceRangeLabel,Integer.parseInt(System.getProperty("positionOfMaximumPrice")));
     }
-    public FiltersPage moveLeftSliderHandlerToSpecificRange(){
+    public FiltersPage moveLeftSliderHandler(){
         moveSlider(sliderLeftHandler, Double.parseDouble(System.getProperty("minimumPrice")), getMinimumPriceRange());
         return this;
     }
-    public void moveRightSliderHandlerToSpecificRange(){
+    public void moveRightSliderHandler(){
         getMaximumPriceRange();
         moveSlider(sliderRightHandler,Double.parseDouble(System.getProperty("maximumPrice")),getMaximumPriceRange());
     }
@@ -46,17 +46,17 @@ public class FiltersPage extends BasePage {
         scrollToElement(sliderRightHandler);
         return this;
     }
-    private void moveSlider(WebElement element, double price, double edge){
-        while (price != edge){
-            if(price > edge){
+    private void moveSlider(WebElement element, double price, double sliderValue){
+        while (price != sliderValue){
+            if(price > sliderValue){
                 wait.until(driver -> element.isEnabled());
                 actions.clickAndHold(element).sendKeys(Keys.ARROW_RIGHT).perform();
-                edge++;
+                sliderValue++;
             }
             else {
                 wait.until(driver -> element.isEnabled());
                 actions.clickAndHold(element).sendKeys(Keys.ARROW_LEFT).perform();
-                edge--;
+                sliderValue--;
             }
         }
         wait.until(driver -> element.isEnabled());

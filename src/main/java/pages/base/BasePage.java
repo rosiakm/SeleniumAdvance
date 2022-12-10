@@ -15,12 +15,15 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static helpers.WaitHandler.waitForElementToBeClickable;
 import static helpers.WaitHandler.waitForElementToBeVisible;
 
 public class BasePage {
     private static final Logger log = LoggerFactory.getLogger(BasePage.class);
+    private Random random = new Random();
+
     public WebDriver driver;
     public Actions actions;
     public WebDriverWait wait;
@@ -92,5 +95,11 @@ public class BasePage {
         Coordinates coordinates = item.getCoordinates();
         event.click(coordinates);
         log.info("Mouse click on element" + element.getText());
+    }
+    protected Integer getRandomNumber(int min, int max){
+        return random.nextInt(min,max);
+    }
+    protected WebElement getRandomWebElement(List<WebElement> elements, int bound){
+        return elements.get(random.nextInt(bound));
     }
 }

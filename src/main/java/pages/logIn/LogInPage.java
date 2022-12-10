@@ -7,15 +7,12 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.base.BasePage;
-import providers.UserBuilder;
 
 public class LogInPage extends BasePage {
     Logger log = LoggerFactory.getLogger(LogInPage.class);
-
     public LogInPage(WebDriver driver){
         super(driver);
     }
-    User registeredUser = UserBuilder.getAlreadyRegisterUser();
 
     @FindBy(css = ".col-md-6 input[name='email']")
     private WebElement emailInput;
@@ -24,12 +21,14 @@ public class LogInPage extends BasePage {
     @FindBy(css = "#submit-login")
     private WebElement signInButton;
 
-    public LogInPage populateEmail(){
-        sendKeys(emailInput, registeredUser.getEmail());
+    public LogInPage populateEmail(User user){
+        sendKeys(emailInput, user.getEmail());
+        log.info("Email of registered user is: " + user.getEmail());
         return this;
     }
-    public LogInPage populatePassword(){
-        sendKeys(passwordInput, registeredUser.getPassword());
+    public LogInPage populatePassword(User user){
+        sendKeys(passwordInput, user.getPassword());
+        log.info("Password of registered user is: " + user.getPassword());
         return this;
     }
     public void signIn(){

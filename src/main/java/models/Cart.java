@@ -17,31 +17,18 @@ public class Cart {
     private List<Product> products = new ArrayList<>();
     private BigDecimal totalOrderCost = new BigDecimal("0.00");
 
-    public void addProduct(Product product) {
-        if (containsName(products, product.getProductName())) {
-            increaseQuantity(product);
-            recalculateTotalPrice(product);
+    public void addProduct(Product productToAdd) {
+        if (containsName(products, productToAdd.getProductName())) {
+            getProductByName(productToAdd).increaseQuantity(productToAdd.getQuantity());
         } else {
-            products.add(product);
+            products.add(productToAdd);
         }
-        recalculateTotalOrderCost(product.getProductPrice(), product.getQuantity());
-    }
-
-    private void recalculateTotalPrice(Product product) {
-        Product myProduct = getProductByName(product);
-        myProduct.setTotalPrice(myProduct.getProductPrice() * myProduct.getQuantity());
+        recalculateTotalOrderCost(productToAdd.getProductPrice(), productToAdd.getQuantity());
     }
 
     private void recalculateTotalOrderCost(Double productPrice, int productQuantity) {
         totalOrderCost = totalOrderCost.add(new BigDecimal(String.valueOf(productPrice * productQuantity)));
     }
-
-    private void increaseQuantity(Product product) {
-        Product myProduct = getProductByName(product);
-        int actualQuantity = myProduct.getQuantity();
-        myProduct.setQuantity(actualQuantity + product.getQuantity());
-    }
-
     private boolean containsName(List<Product> productList, String name) {
         return productList.stream().anyMatch(product -> product.getProductName().equals(name));
     }

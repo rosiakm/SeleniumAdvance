@@ -1,6 +1,7 @@
 package products;
 
 import base.Pages;
+import models.Categories;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
@@ -19,6 +20,7 @@ public class ProductsGridTest extends Pages {
         for (String categoryName : topMenuPage.getCategoryNames()) {
             log.info("My category name is: " + categoryName);
             topMenuPage.getCategoryButtonByName().get(categoryName).click();
+
             softly.assertThat(productsGridPage.getCategoryLabelText()).isEqualTo(categoryName);
             int numberOfDisplayingProducts = productsGridPage.getTheNumberOfProducts();
             softly.assertThat(productsGridPage.getTextOfSearchSummary()).isEqualTo("There are " +
@@ -31,10 +33,12 @@ public class ProductsGridTest extends Pages {
     @DisplayName("Price filter test")
     @Tag("filters")
     public void checkPriceFilterTest() {
-        topMenuPage.openArtCategory();
+        topMenuPage.openCategory(Categories.ART);
+
         filtersPage.scrollToPriceFilter()
-                .moveLeftSliderHandlerToSpecificRange()
-                .moveRightSliderHandlerToSpecificRange();
+                .moveLeftSliderHandler()
+                .moveRightSliderHandler();
+
         productsGridPage.scrollToProductDescription();
         for (double productPrice : productsGridPage.getProductPrices()) {
             softly.assertThat(productPrice).isBetween(Double.valueOf(System.getProperty("minimumPrice")),

@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.base.BasePage;
 
-import java.util.Random;
-
 import static helpers.WaitHandler.waitForElementToBeClickable;
 
 public class ProductDetailsPage extends BasePage {
@@ -53,9 +51,7 @@ public class ProductDetailsPage extends BasePage {
         sendKeysAndClear(quantityInput, text);
         log.info("quantity value: " + text);
     }
-    public void waitForQuantityInputToBeClickable(){
-        waitForElementToBeClickable(driver,quantityInput);
-    }
+
     public ProductDetailsPage setRandomQuantity(int minQuantity, int maxQuantity){
         String quantity = getRandomQuantity(minQuantity, maxQuantity);
         sendKeysAndClear(quantityInput,quantity);
@@ -63,7 +59,6 @@ public class ProductDetailsPage extends BasePage {
         return this;
     }
     private String getRandomQuantity(int minQuantity, int maxQuantity){
-        Random random = new Random();
-        return String.valueOf(random.nextInt(minQuantity, maxQuantity));
+        return String.valueOf(getRandomNumber(minQuantity, maxQuantity));
     }
 }

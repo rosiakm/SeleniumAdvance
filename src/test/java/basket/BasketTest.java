@@ -2,6 +2,7 @@ package basket;
 
 import base.Pages;
 import models.Cart;
+import models.Categories;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
@@ -18,11 +19,14 @@ public class BasketTest extends Pages {
     @Tag("popup")
     @Tag("basket")
     public void popupTest() {
-        topMenuPage.openArtCategory();
+        topMenuPage.openCategory(Categories.ART);
+
         productsGridPage.openProductByName(System.getProperty("basketPopupGenericProductName"));
+
         productDetailsPage.setQuantity(System.getProperty("basketPopupGenericQuantity"));
         Double productPrice = productDetailsPage.getProductPrice();
         productDetailsPage.addProductToCart();
+
         softly.assertThat(addToCartPopupPage.getProductName()).isEqualTo(System.getProperty("basketPopupGenericProductName"));
         softly.assertThat(addToCartPopupPage.getProductPrice()).isEqualTo(productPrice);
         softly.assertThat(addToCartPopupPage.getTotalPrice()).isEqualTo((productPrice) *
@@ -41,10 +45,13 @@ public class BasketTest extends Pages {
 
         for (int i = 0; i < Integer.parseInt(System.getProperty("basketCalculationsTestIterations")); i++) {
             productsGridPage.openRandomProductDetails();
+
             productDetailsPage.setRandomQuantity(Integer.parseInt(System.getProperty("minQuantity")),
                             Integer.parseInt(System.getProperty("maxQuantity")))
                     .addProductToCart(expectedCart);
+
             addToCartPopupPage.continueShopping();
+
             topMenuPage.moveToMainPage();
         }
         topMenuPage.openCart();

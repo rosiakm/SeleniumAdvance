@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pages.base.BasePage;
-import providers.AddressBuilder;
 
 import static helpers.WaitHandler.waitForElementToBeClickable;
 
@@ -17,7 +16,6 @@ public class CheckoutFormPage extends BasePage {
     public CheckoutFormPage(WebDriver driver){
         super(driver);
     }
-    Address address = AddressBuilder.newAddress();
 
     @FindBy(css = "a[data-link-action='different-invoice-address']")
     private WebElement differentAddressLink;
@@ -48,7 +46,7 @@ public class CheckoutFormPage extends BasePage {
         click(differentAddressLink);
         return this;
     }
-    public CheckoutFormPage populateInvoiceAddress(){
+    public CheckoutFormPage populateInvoiceAddress(Address address){
         try {
             sendKeys(addressInput, address.getAddress());
             sendKeys(postalInput, address.getZipCode());
